@@ -121,6 +121,20 @@ Ahora entraremos a la siguiente dirección url (http://192.168.56.20.nip.io:5000
 
 > **OJO** : He intentado utilizar esta forma de manera automática utilizando esta instrucción en segundo plano con '&', no he tenido éxito, pero lo he dejado comentado por si acaso, pues bloqueaba la terminal. Así se explica el porqué lo he hecho a través del ssh.
 
+### 3.2 Despliegue con Gunicorn
+
+Para desplegar nuestro proyecto con Gunicorn deberemos añadir la siguiente linea a la provisión :
+
+```bash
+   pipenv run gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app --daemon
+```
+
+Obtendremos la misma salida que en la anterior foto,visitando la misma url.Gunicorn tiene varias ventajas respecto de pipenv, entre ellas el poder tener más de un "worker" que hará que si un hilo falla, podremos seguir usando los siguientes.
+
+Además al ponerlo en modo demonio ( --daemon ) podremos liberar la terminal y desvincular el proceso, lo que es bastante idoneo para un archivo de provisionamiento de Vagrant.
+
+### 3.3 Despliegue con Nginx + Gunicorn
+
 
 
 
