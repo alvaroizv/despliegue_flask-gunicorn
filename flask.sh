@@ -16,4 +16,8 @@ chmod -R 775 /var/www/app
 systemctl start nginx
 systemctl status nginx
 
+cp /vagrant/flask_app.service /etc/systemd/system/flask_app.service
+
 systemctl daemon-reload
+systemctl enable flask_app
+systemctl restart flask_app
