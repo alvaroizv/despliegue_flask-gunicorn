@@ -12,3 +12,8 @@ mkdir -p /var/www/app
 
 chown -R vagrant:www-data /var/www/app
 chmod -R 775 /var/www/app
+
+systemctl start nginx
+systemctl status nginx
+
+systemctl daemon-reload
