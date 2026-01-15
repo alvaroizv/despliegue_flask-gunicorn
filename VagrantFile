@@ -23,6 +23,10 @@ Vagrant.configure("2") do |config|
 
      pipenv install flask gunicorn
 
+     cp /vagrant/application.py ./
+     cp /vagrant/wsgi.py ./
+
+     pipenv run flask run --host '0.0.0.0'"
      SHELL
   end
 end
