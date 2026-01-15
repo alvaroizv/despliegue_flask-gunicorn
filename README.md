@@ -99,6 +99,30 @@ Para copiarlos a nuestro proyecto, desde el usuario, utilizaremos las siguientes
    cp /vagrant/wsgi.py ./
 ```
 
+## 3. Despliegue
+
+Para desplegar el proyecto encontramos 3 maneras diferentes:
+
+- Con el propio pipenv 
+- Con Gunicorn
+- Con Nginx, que internamente tiene conectado Gunicorn
+
+### 3.1 Despliegue con pipenv.
+
+La manera más sencilla de todas, simplemente haremos **vagrant ssh** y dentro ejecutaremos el siguiente comando:
+
+```bash
+   pipenv run flask run --host '0.0.0.0'
+```
+
+Ahora entraremos a la siguiente dirección url (http://192.168.56.20.nip.io:5000/) y veremos lo siguiente si todo ha ido bien :
+![alt text](6.App_pipenv.png)
+
+
+> **OJO** : He intentado utilizar esta forma de manera automática utilizando esta instrucción en segundo plano con '&', no he tenido éxito, pero lo he dejado comentado por si acaso, pues bloqueaba la terminal. Así se explica el porqué lo he hecho a través del ssh.
+
+
+
 
 
 
