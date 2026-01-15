@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/debian-11"
+  config.ssh.insert_key= false
+
+
+  config.vm.define "flask" do |debian|
+     debian.vm.hostname="debian"
+     debian.vm.network "private_network",ip: "192.168.56.20"
+     debian.vm.provision "shell",path: "flask.sh"
+     debian.vm.provision "shell",privileged: false,inline: <<-SHELL
+
+     pip3 install pipenv
+     export PATH="$PATH:/home/vagrant/.local/bin"
+     pipenv --version
+
+     pip3 install python-dotenv
+
+     echo "FLASK_APP=wsgi.py" > .env
+    echo "FLASK_ENV=production" >> .env
+
+     SHELL
+  end
+end
