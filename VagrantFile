@@ -28,9 +28,11 @@ Vagrant.configure("2") do |config|
      cp /vagrant/wsgi.py ./
 
      # COMANDO PARQA QUE CORRA DIRECTAMENTE pipenv run flask run --host '0.0.0.0' &
-     pipenv run gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app --daemon
+     # COMANDO PARA QUE SE EJECUTE CON GUNICORN pipenv run gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app --daemon
+    sudo systemctl daemon-reload
+    sudo systemctl restart flask_app
+    sudo systemctl restart nginx
 
-     
      SHELL
   end
 end

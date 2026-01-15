@@ -13,7 +13,6 @@ mkdir -p /var/www/app
 chown -R vagrant:www-data /var/www/app
 chmod -R 775 /var/www/app
 
-systemctl start nginx
 systemctl status nginx
 
 cp /vagrant/app.conf /etc/nginx/sites-available/app.conf
@@ -24,5 +23,4 @@ rm -f /etc/nginx/sites-enabled/default
 
 systemctl daemon-reload
 systemctl enable flask_app
-systemctl restart flask_app
-systemctl restart nginx
+systemctl enable nginx
