@@ -5,7 +5,11 @@ After=network.target
 [Service]
 User=vagrant
 Group=www-data
+Environment="PATH=/var/www/app_azure/.venv/bin"
 WorkingDirectory=/var/www/app_azure
+
 ExecStart=/var/www/app_azure/.venv/bin/gunicorn --workers 4 --bind unix:/var/www/app_azure/azure.sock app:app
+Restart=always
+
 [Install]
 WantedBy=multi-user.target

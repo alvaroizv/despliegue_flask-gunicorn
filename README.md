@@ -37,11 +37,11 @@ Para comenzar con este proyecto, deberemos crear una máquina virtual con **Vagr
 
 Una vez que tengamos esto claro, deberemos instalar los paquetes necesarios como root:
 
-![alt text](1.Instalacion.png)
+![alt text](img/1.Instalacion.png)
 
 Una vez instalado el paquete de python y pip, podemos utilizar este gestor de dependencias en el usuario :
 
-![alt text](2.Dependencias_py.png)
+![alt text](img/2.Dependencias_py.png)
 
 Utilizamos el comando --version para comprobar que se ha instalado correctamente.
 
@@ -51,7 +51,7 @@ Los plugins instalados serán pipenv, para gestionar entornos virtuales y python
 
 Posteriormente crearemos las siguientes variables de Entorno:
 
-![alt text](3.VariablesEnv.png)
+![alt text](img/3.VariablesEnv.png)
 
 La primera será para definir la ruta que tendrá que usar en el pipenv, la segunda variable vemos su uso más adelante, con Gunicorn.
 
@@ -88,9 +88,9 @@ Para implementar dichos archivos ( que es,en ensencia, nuestro proyecto) primero
 
 Su contenido es el siguiente:
 
-![alt text](4.app.py.png)
+![alt text](img/4.app.py.png)
 
-![alt text](5.wsgi.png)
+![alt text](img/5.wsgi.png)
 
 Para copiarlos a nuestro proyecto, desde el usuario, utilizaremos las siguientes instrucciones :
 
@@ -116,7 +116,7 @@ La manera más sencilla de todas, simplemente haremos **vagrant ssh** y dentro e
 ```
 
 Ahora entraremos a la siguiente dirección url (http://192.168.56.20.nip.io:5000/) y veremos lo siguiente si todo ha ido bien :
-![alt text](6.App_pipenv.png)
+![alt text](img/6.App_pipenv.png)
 
 
 > **OJO** : He intentado utilizar esta forma de manera automática utilizando esta instrucción en segundo plano con '&', no he tenido éxito, pero lo he dejado comentado por si acaso, pues bloqueaba la terminal. Así se explica el porqué lo he hecho a través del ssh.
@@ -139,7 +139,7 @@ Primero deberemos instalar nginx. Al haberlo instalado en la foto número 1, no 
 
 Lo siguiente será configurar nuestro sitio web, esto lo haremos con el archivo app.conf, que debe quedar así :
 
-![alt text](7.AppConf.png)
+![alt text](img/7.AppConf.png)
 
 Posteriormente, a traves del root, deberemos activar nuestro sitio web y pasarle esta configuración previamente hecha :
 
@@ -154,7 +154,7 @@ En este momento ya tendríamos nginx corriendo con normalidad, pero falta enlaza
 
 Comenzando dicho enlace, deberemos crear un archivo para que systemd ejecute Gunicorn como un servicio más :
 
-![alt text](8.service.png)
+![alt text](img/8.service.png)
 
 Habilitaremos el servicio y le diremos a systemd que hemos realizado cambios :
 
@@ -205,7 +205,7 @@ Ahora instalamos sus paquete requeridos con estas instrucciones :
 
 Posteriormente, deberemos crear otro archivo de systemd para este nuevo proyecto :
 
-![alt text](9.azure.png)
+![alt text](img/9.azureFile.png)
 
 También lo agregamos a la provisión con el siguiente comando :
 
@@ -224,7 +224,15 @@ Por si acaso, le damos los permisos correspondientes (He sustituido los de la pr
 
 Por último, le creamos una ruta nueva llamada /azure en la configuración de nuestro sitio web de nginx :
 
-![alt text](10.location_azure.png)
+![alt text](img/10.LocationAzure.png)
+
+Nota: Le ponemos esas barras para que nginx detecte que es una ruta independiente, y no se "lie" entre las dos.
+
+Una vez hecho todo esto, nos meteremos a la ruta /azure/ y veremos lo siguiente :
+![alt text](img/11.ResultadoAzure.png)
+
+> **OJO:** Debemos instalar git, para que no pase como a mi, que estuve media hora buscando el fallo y era por esta razón....
+> **OJO:** Tener cuidado con que nginx despliega en el puerto 8080 (el default) y gunicorn en el 5500, porque si tenemos el despliegue con nginx e intentamos acceder al puerto 5500, no saldrá nada (y perderemos el tiempo como yo hice, buscando el problema....)
 
 
 

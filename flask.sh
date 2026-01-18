@@ -6,9 +6,10 @@ apt-get update
 
 apt-get -y upgrade
 
-apt-get -y install nginx python3-pip python3-dev
+apt-get -y install nginx python3-pip python3-dev git
 
 mkdir -p /var/www/app
+mkdir -p /var/www/app_azure
 
 chown -R vagrant:www-data /var/www
 chmod -R 775 /var/www
