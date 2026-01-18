@@ -5,11 +5,9 @@ After=network.target
 [Service]
 User=vagrant
 Group=www-data
-# 1. Actualizamos el PATH a la nueva ruta fija
 Environment="PATH=/var/www/app/.venv/bin"
 WorkingDirectory=/var/www/app
 
-# 2. Usamos la ruta fija de Gunicorn y bind a la IP para poder ver la web
 ExecStart=/var/www/app/.venv/bin/gunicorn --workers 3 --bind unix:/var/www/app/app.sock wsgi:app
 Restart=always
 

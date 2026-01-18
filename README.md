@@ -135,6 +135,64 @@ Además al ponerlo en modo demonio ( --daemon ) podremos liberar la terminal y d
 
 ### 3.3 Despliegue con Nginx + Gunicorn
 
+Primero deberemos instalar nginx. Al haberlo instalado en la foto número 1, no tendriamos que hacer este paso.
+
+Lo siguiente será configurar nuestro sitio web, esto lo haremos con el archivo app.conf, que debe quedar así :
+
+![alt text](7.AppConf.png)
+
+Posteriormente, a traves del root, deberemos activar nuestro sitio web y pasarle esta configuración previamente hecha :
+
+```bash
+   cp /vagrant/app.conf /etc/nginx/sites-available/app.conf
+   ln -sf /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/
+   rm -f /etc/nginx/sites-enabled/default
+   systemctl enable nginx
+```
+
+En este momento ya tendríamos nginx corriendo con normalidad, pero falta enlazarlo con Gunicorn.
+
+Comenzando dicho enlace, deberemos crear un archivo para que systemd ejecute Gunicorn como un servicio más :
+
+![alt text](8.service.png)
+
+Habilitaremos el servicio y le diremos a systemd que hemos realizado cambios :
+
+```bash
+   sudo systemctl daemon-reload
+   systemctl enable flask_app
+   systemctl start flask_app
+```
+
+Y ahora nos preguntaremos, ¿Qué es .venv y porque lo usamos tanto como variable como en la configuración del servicio Gunicorn?
+
+Pues bien, .venv es la carpeta donde reside un entorno virtual de python, entonces al ejecutar esta linea como usuario en el entorno de python :
+
+```bash
+        export PIPENV_VENV_IN_PROJECT=1
+```
+
+Le estamos diciendo que el entorno de trabajo se guarde de manera centralizada y sin hashear, en la carpeta .venv .
+
+Por ello cuando vamos a configurar el servicio de Gunicorn, vemos la siguiente carpeta :
+
+```bash
+   ExecStart=/var/www/app/.venv/bin/gunicorn --workers 3 --bind unix:/var/www/app/app.sock wsgi:app
+```
+
+Diferente a lo que teníamos antes cuando estaba solo gunicorn,pues esta linea la ejecutabamos tal cual en la provisión y no dentro de un fichero, vemos que la carpeta es .venv y no un número o palabra hasheada, de ahí el uso de esta configuración.
+
+## 4. Tarea Adicional
+
+Para una mejor comprobación de funcionamiento, he decidido ejecutar la aplicación de la Tarea de ampliación en otro puerto diferente, para poder ver las 2 de manera simultanea.
+
+
+
+
+
+
+
+
 
 
 
