@@ -6,11 +6,18 @@ Proyecto para la asignatura Despliegue de Aplicaciones Web en el cual realizarem
 ## Índice
 
 1. [Herramientas necesarias](#herramientas-necesarias)
-2. [Comandos utilizados](#comandos-utilizados-en-el-proyecto)
-   - [Comandos de Vagrant (Terminal local)](#comandos-de-vagrant-terminal-local)
-   - [Comandos de Linux (Terminal remota)](#comandos-de-linux-terminal-remota)
-   - [Comandos para verificación](#comandos-para-verificación)
-3. [Ejecución del proyecto](#ejecución-del-proyecto)
+   - [Herramientas Internas](#herramientas-internas)
+2. [1. Instalación y configuración del proyecto](#1-instalación-y-configuración-del-proyecto)
+   - [1.2 Variables de Entorno](#12-variables-de-entorno)
+     - [1.2.1 Creación de Espacio de Trabajo](#121-creación-de-espacio-de-trabajo)
+     - [1.2.2 Variables de Python y su ejecución](#122-variables-de-python-y-su-ejecución)
+   - [1.3 Instalación de paquetes de python (Flask y Gunicorn)](#13-instalacíon-de-paquetes-de-python-flask-y-gunicorn)
+3. [2. Archivos .py y despliegue](#2-archivos-py-y-despliegue)
+4. [3. Despliegue](#3-despliegue)
+   - [3.1 Despliegue con pipenv](#31-despliegue-con-pipenv)
+   - [3.2 Despliegue con Gunicorn](#32-despliegue-con-gunicorn)
+   - [3.3 Despliegue con Nginx + Gunicorn](#33-despliegue-con-nginx--gunicorn)
+5. [4. Tarea Adicional (Proyecto Azure)](#4-tarea-adicional)
 
 ---
 
@@ -232,6 +239,9 @@ Una vez hecho todo esto, nos meteremos a la ruta /azure/ y veremos lo siguiente 
 ![alt text](img/11.ResultadoAzure.png)
 
 > **OJO:** Debemos instalar git, para que no pase como a mi, que estuve media hora buscando el fallo y era por esta razón....
+
+
+
 > **OJO:** Tener cuidado con que nginx despliega en el puerto 8080 (el default) y gunicorn en el 5500, porque si tenemos el despliegue con nginx e intentamos acceder al puerto 5500, no saldrá nada (y perderemos el tiempo como yo hice, buscando el problema....)
 
 
