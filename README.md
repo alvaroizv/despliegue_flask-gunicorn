@@ -215,6 +215,16 @@ También lo agregamos a la provisión con el siguiente comando :
    systemctl start flask_azure
 ```
 
+Por si acaso, le damos los permisos correspondientes (He sustituido los de la primer proyecto a más generales, para que engloben a ambos) :
+
+```bash
+   chown -R vagrant:www-data /var/www
+   chmod -R 775 /var/www
+```
+
+Por último, le creamos una ruta nueva llamada /azure en la configuración de nuestro sitio web de nginx :
+
+![alt text](10.location_azure.png)
 
 
 
