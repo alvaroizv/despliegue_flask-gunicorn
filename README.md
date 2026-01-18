@@ -186,6 +186,38 @@ Diferente a lo que teníamos antes cuando estaba solo gunicorn,pues esta linea l
 
 Para una mejor comprobación de funcionamiento, he decidido ejecutar la aplicación de la Tarea de ampliación en otro puerto diferente, para poder ver las 2 de manera simultanea.
 
+Lo primero será instalar el nuevo proyecto, haciendo los siguientes comandos como usuario (privileged: false) :
+
+```bash
+   cd /var/www
+   git clone https://github.com/Azure-Samples/msdocs-python-flask-webapp-quickstart app_azure
+   cd app_azure
+   export PIPENV_VENV_IN_PROJECT=1
+```
+
+Repetimos el export de la configuración porque es otro proyecto totalmente diferente al anterior.
+
+Ahora instalamos sus paquete requeridos con estas instrucciones :
+
+```bash
+   pipenv install -r requirements.txt
+```
+
+Posteriormente, deberemos crear otro archivo de systemd para este nuevo proyecto :
+
+![alt text](9.azure.png)
+
+También lo agregamos a la provisión con el siguiente comando :
+
+```bash
+   cp /vagrant/flask_azure.service /etc/systemd/system/flask_azure.service
+   systemctl enable flask_azure
+   systemctl start flask_azure
+```
+
+
+
+
 
 
 

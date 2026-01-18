@@ -27,6 +27,13 @@ Vagrant.configure("2") do |config|
      cp /vagrant/application.py ./
      cp /vagrant/wsgi.py ./
 
+     cd /var/www
+     git clone https://github.com/Azure-Samples/msdocs-python-flask-webapp-quickstart app_azure
+     cd app_azure
+
+     export PIPENV_VENV_IN_PROJECT=1
+     pipenv install -r requirements.txt
+
      # COMANDO PARQA QUE CORRA DIRECTAMENTE pipenv run flask run --host '0.0.0.0' &
      # COMANDO PARA QUE SE EJECUTE CON GUNICORN pipenv run gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app --daemon
     sudo systemctl daemon-reload
